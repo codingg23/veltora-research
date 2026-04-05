@@ -14,7 +14,7 @@ If you catch that early, you order before the queue gets long.
 Approach: per-vendor, per-hardware-category regression on rolling
 features (recent lead times, order volume, macro signals if available).
 
-Still very early — only have synthetic data to test on.
+Still very early  -  only have synthetic data to test on.
 """
 import numpy as np
 import pandas as pd
@@ -43,7 +43,7 @@ class LeadTimeFeatures:
     # time features
     month: int
     quarter: int
-    # vendor-specific baseline (encoded as numeric — not ideal but fine for now)
+    # vendor-specific baseline (encoded as numeric  -  not ideal but fine for now)
     vendor_id: int
 
 
@@ -145,7 +145,7 @@ class LeadTimeForecaster:
         last_row = features_df[(features_df["vendor"] == vendor)].tail(1)
 
         if last_row.empty:
-            # no history for this vendor — return naive estimate
+            # no history for this vendor  -  return naive estimate
             return {"predicted_lead_days": 60, "confidence": "low", "note": "no vendor history"}
 
         X = last_row[self.FEATURE_COLS].values

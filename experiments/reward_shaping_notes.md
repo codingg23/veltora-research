@@ -1,22 +1,22 @@
-# Reward Shaping Experiments — Procurement Agent
+# Reward Shaping Experiments  -  Procurement Agent
 
 Notes from trying different reward formulations for the PPO procurement agent.
 Keeping this as markdown because it's more of a research diary than code.
 
-## v1 — Simple holding + stockout cost (failed)
+## v1  -  Simple holding + stockout cost (failed)
 
 ```python
 reward = -(holding_cost + stockout_cost)
 ```
 
 Problem: stockout cost only applied when inventory hit zero.
-By then it's too late — lead times are 90-120 days.
+By then it's too late  -  lead times are 90-120 days.
 The agent learned to never order anything because the penalty was so delayed.
 
 Result: agent always had zero inventory, got penalised constantly,
 never learned to pre-order.
 
-## v2 — Buffer threshold penalty (current)
+## v2  -  Buffer threshold penalty (current)
 
 ```python
 buffer_threshold = demand * 7  # 7-day safety stock
@@ -33,7 +33,7 @@ Result: agent learns to maintain a safety buffer. Pre-orders
 GPU servers ~85 days out (slightly conservative vs optimal ~100 days).
 Still overfit to synthetic data distribution.
 
-## v3 ideas — not tried yet
+## v3 ideas  -  not tried yet
 
 - Add an "expedite cost" component: penalise orders placed within 30 days of projected need
   (forces the agent to plan ahead, not just react)
@@ -42,7 +42,7 @@ Still overfit to synthetic data distribution.
 
 ## Discount factor observations
 
-gamma=0.99 was too high — agent discounted near-term holding costs too heavily
+gamma=0.99 was too high  -  agent discounted near-term holding costs too heavily
 and learned to order massive quantities infrequently (which looks bad).
 
 gamma=0.995 with longer rollouts (n_steps=2048) worked better.

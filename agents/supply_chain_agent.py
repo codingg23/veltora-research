@@ -7,7 +7,7 @@ Trying to learn: given current state (inventory, utilisation trends,
 open orders, budget), what's the optimal order quantity for each
 hardware category?
 
-This is v2 — v1 had a broken reward function where the agent just
+This is v2  -  v1 had a broken reward function where the agent just
 never ordered anything because stockout penalties were too delayed
 relative to holding cost penalties. Fixed that with a proper
 'inventory shortage cost' that applies from the moment utilisation
@@ -17,7 +17,7 @@ Still lots of problems:
 - The environment is too clean compared to real procurement
 - Budget gates (quarterly purchasing windows) aren't modelled
 - Vendor relationships / negotiation isn't modelled
-- The agent can't "call a vendor" — it just submits orders
+- The agent can't "call a vendor"  -  it just submits orders
 
 But: it does learn to pre-order GPU servers ~90 days before
 projected shortage, which is roughly right given current lead times.
@@ -95,7 +95,7 @@ class ProcurementEnv(gym.Env):
     Action:
         Discrete: for each hardware type, choose order quantity from ORDER_OPTIONS
         Total action space: len(ORDER_OPTIONS)^N_HARDWARE
-        (factorised: one discrete choice per hardware type — would use MultiDiscrete)
+        (factorised: one discrete choice per hardware type  -  would use MultiDiscrete)
 
     Reward:
         Negative cost = -(holding_cost + stockout_cost + expedite_premium)
@@ -165,7 +165,7 @@ class ProcurementEnv(gym.Env):
             cost += inv * props["holding_cost_per_unit_per_day"]
 
             # stockout cost: if inventory < 7-day demand buffer, penalty
-            # (this is the fix from v1 — applied every step, not just when it hits zero)
+            # (this is the fix from v1  -  applied every step, not just when it hits zero)
             buffer_threshold = demand * 7
             if inv < buffer_threshold:
                 shortage_frac = 1 - inv / max(buffer_threshold, 0.01)
@@ -246,7 +246,7 @@ def train(total_timesteps: int = 500_000, checkpoint_dir: str = "./models/"):
         n_steps=2048,
         batch_size=64,
         n_epochs=10,
-        gamma=0.995,       # long horizon — procurement decisions have delayed consequences
+        gamma=0.995,       # long horizon  -  procurement decisions have delayed consequences
         gae_lambda=0.95,
         clip_range=0.2,
         ent_coef=0.01,     # some entropy encourages exploration of order timing

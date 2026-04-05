@@ -12,7 +12,7 @@ The agent receives an infrastructure event, reasons about it using
 the digital twin simulation as a tool, and produces a prioritised
 action plan for the operations team.
 
-This is early. The main thing missing is a feedback loop — right now
+This is early. The main thing missing is a feedback loop  -  right now
 the agent makes recommendations but doesn't learn whether they worked.
 That's the next thing to build.
 """
@@ -44,7 +44,7 @@ Principles:
 - Be conservative in safety-critical situations. When in doubt, recommend the safer action.
 
 You have access to tools for querying real telemetry data and running simulations.
-Always use these tools before making recommendations — do not reason from assumptions alone.
+Always use these tools before making recommendations  -  do not reason from assumptions alone.
 """
 
 # Event severity levels
@@ -171,7 +171,7 @@ class OpsAgent:
             return {"error": f"Unknown tool: {tool_name}"}
 
     def _mock_telemetry(self, args: dict) -> dict:
-        """Placeholder — replace with real DCIM query."""
+        """Placeholder  -  replace with real DCIM query."""
         return {
             "component_id": args.get("component_id"),
             "readings": {
@@ -182,11 +182,11 @@ class OpsAgent:
                 "compressor_current_a": 42.1,
             },
             "trend": "load increasing over past 45 minutes",
-            "note": "Mock data — replace with real DCIM integration",
+            "note": "Mock data  -  replace with real DCIM integration",
         }
 
     def _mock_simulation(self, args: dict) -> dict:
-        """Placeholder — replace with real digital twin."""
+        """Placeholder  -  replace with real digital twin."""
         return {
             "scenario": f"{args.get('component_type')} {args.get('component_id')} {args.get('failure_mode')}",
             "projected_impact": {
@@ -195,7 +195,7 @@ class OpsAgent:
                 "time_to_ashrae_limit_minutes": 18,
                 "cooling_headroom_remaining_pct": 12,
             },
-            "note": "Mock simulation — replace with real digital twin integration",
+            "note": "Mock simulation  -  replace with real digital twin integration",
         }
 
     def analyse_event(self, event: InfraEvent, verbose: bool = False) -> ActionPlan:
@@ -230,7 +230,7 @@ the operations team. Structure your response as:
 
         for _ in range(5):  # max tool call rounds
             response = self.client.messages.create(
-                model="claude-opus-4-6",  # using Opus for complex reasoning
+                model="claude-3-opus-20240229",  # using Opus for complex reasoning
                 max_tokens=2048,
                 system=OPS_SYSTEM_PROMPT,
                 tools=self.tools,
