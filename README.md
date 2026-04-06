@@ -1,10 +1,10 @@
 # veltora-research
 
-Early research for Veltora's multi-agent intelligence layer.
+Early research for Veltora's multi agent intelligence layer.
 
-This is where I dump experimental work. Some of it will become product features, a lot of it will get thrown away. Not production code - lots of half-finished experiments that I'm keeping for reference.
+This is where I dump experimental work. Some of it will become product features, a lot of it will get thrown away. Not production code - lots of half finished experiments that I'm keeping for reference.
 
-Current focus: can multi-agent RL systems make better procurement and capacity planning decisions than rules-based systems? Early results are mixed but interesting.
+Current focus: can multi agent RL systems make better procurement and capacity planning decisions than rules based systems? Early results are mixed but interesting.
 
 ## What's Here
 
@@ -25,7 +25,7 @@ Current status: converges on the training env but overfit to the synthetic data 
 
 ### Operations Orchestrator Agent (`agents/ops_agent.py`)
 
-Prototype multi-agent system for coordinating operational responses to infrastructure events.
+Prototype multi agent system for coordinating operational responses to infrastructure events.
 
 Given a detected anomaly (e.g. "CRAC-04 efficiency degrading"), it generates and prioritises response actions across different teams (facilities, capacity, procurement, networking).
 
@@ -63,7 +63,7 @@ python agents/supply_chain_agent.py --eval --checkpoint ./models/ppo_procurement
 
 **2025-01-14**: Shifted ops agent to LLM-based planning instead of RL. Much more interpretable, easier to debug, handles novel situations better. RL might still be worth it for the procurement timing problem specifically.
 
-**2025-03-02**: Started lead time forecasting experiments. Treating vendor lead time as a time-series problem. Main finding: supplier-specific features matter a lot, some vendors are consistently faster or slower than their quotes.
+**2025-03-02**: Started lead time forecasting experiments. Treating vendor lead time as a time series problem. Main finding: supplier specific features matter a lot, some vendors are consistently faster or slower than their quotes.
 
 ## Disclaimer
 
